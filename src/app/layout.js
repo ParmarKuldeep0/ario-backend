@@ -1,20 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import logo from '../../public/logo.png'
 import Footer from "./components/footer";
 import Loader from "./components/loader/loader";
 import EmailFloat from "./components/whatsapp";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Ario Shipping & Logistics | Global Freight Forwarding & Customs Clearance",
@@ -123,7 +112,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased absolute`}>
+      <body className="antialiased">
         <Loader>
           <Header />
           {children}

@@ -48,49 +48,54 @@ const ContactSection = () => {
       [id]: value
     }));
   };
-  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
-
+  
+  console.log("API URL:", process.env.NEXT_PUBLIC_BACKEND_URL);
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus({ message: '', isError: false });
+  e.preventDefault();
+  setIsSubmitting(true);
+  setSubmitStatus({ message: '', isError: false });
 
-    try {
-
-     const response = await fetch('https://ario-contact-backend.vercel.app/api/contact', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData),
-});
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitStatus({ 
-          message: 'Message sent successfully! We will get back to you soon.', 
-          isError: false 
-        });
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          message: ''
-        });
-      } else {
-        setSubmitStatus({ 
-          message: data.message || 'Failed to send message. Please try again.', 
-          isError: true 
-        });
+  try {
+    const response = await fetch(
+      `/api/contact-career`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       }
-    } catch (error) {
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
       setSubmitStatus({ 
-        message: 'Network error. Please check your connection and try again.', 
+        message: 'Message sent successfully! We will get back to you soon.', 
+        isError: false 
+      });
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } else {
+      setSubmitStatus({ 
+        message: data.message || 'Failed to send message. Please try again.', 
         isError: true 
       });
-    } finally {
-      setIsSubmitting(false);
     }
-  };
+  } catch (error) {
+    console.error(error);
+    setSubmitStatus({ 
+      message: 'Network error. Please check your connection and try again.', 
+      isError: true 
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <section className="py-8 md:py-16">

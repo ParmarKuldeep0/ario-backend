@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import Loader from './components/loader/loader'
+import "./globals.css";
 
 // Components with skeleton loaders
 const Hero = React.lazy(() => import('./hero/page'))
